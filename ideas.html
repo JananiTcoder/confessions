@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share an Idea</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="new.js"></script>
+</head>
+<body>
+  <h2>Share Your Idea</h2>
+  <form id="ideaForm">
+    <input type="text" id="name" placeholder="Your Name" required><br>
+    <input type="text" id="year" placeholder="Year" required><br>
+    <input type="text" id="dept" placeholder="Department" required><br>
+    <textarea id="ideaMsg" placeholder="Your idea" required></textarea><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    document.getElementById("ideaForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const year = document.getElementById("year").value.trim();
+      const dept = document.getElementById("dept").value.trim();
+      const msg = document.getElementById("ideaMsg").value.trim();
+
+      if (msg) {
+        firebase.database().ref("ideas").push({
+          name,
+          year,
+          department: dept,
+          message: msg
+        });
+        alert("Idea sent successfully!");
+        document.getElementById("ideaForm").reset();
+      } else {
+        alert("Message cannot be empty.");
+      }
+    });
+  </script>
+</body>
+</html>

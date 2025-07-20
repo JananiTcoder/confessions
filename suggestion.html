@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Suggestion</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="new.js"></script>
+</head>
+<body>
+  <h2>Send a Suggestion</h2>
+  <form id="suggestionForm">
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <input type="text" id="year" placeholder="Year"><br>
+    <input type="text" id="dept" placeholder="Department"><br>
+    <textarea id="suggestionMsg" placeholder="Your suggestion"></textarea><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    document.getElementById("suggestionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const year = document.getElementById("year").value.trim();
+      const dept = document.getElementById("dept").value.trim();
+      const msg = document.getElementById("suggestionMsg").value.trim();
+
+      if (msg) {
+        firebase.database().ref("suggestions").push({
+          name, year, department: dept, message: msg
+        });
+        alert("Suggestion sent!");
+        document.getElementById("suggestionForm").reset();
+      } else {
+        alert("Message cannot be empty.");
+      }
+    });
+  </script>
+</body>
+</html>

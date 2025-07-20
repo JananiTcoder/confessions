@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confession</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="new.js"></script>
+</head>
+<body>
+  <h2>Send a Confession</h2>
+  <form id="confessionForm">
+    <textarea id="confessionMsg" placeholder="Your confession"></textarea><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    document.getElementById("confessionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const msg = document.getElementById("confessionMsg").value.trim();
+      if (msg) {
+        contactFormDB.push({ message: msg });
+        alert("Confession sent!");
+        document.getElementById("confessionMsg").value = "";
+      } else {
+        alert("Message cannot be empty.");
+      }
+    });
+  </script>
+</body>
+</html>
